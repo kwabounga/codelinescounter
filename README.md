@@ -8,9 +8,14 @@ to see how many lines of code you have written!
 $ git clone http://github.com/kwabounga/codelinescounter/
 $ npm install
 $ npm link
-> done!
+# done!
+# test
+$ clc -V
+> 1.0.0
 ````
 ### configuration
+
+has you want  
 *fichier ./conf/.conf*
 ```json
 {
@@ -20,14 +25,37 @@ $ npm link
   "include_folders": ["css", "js", "exports", "html", "bin"]
 }
 include folders: is used for the root folder, it can be empty
-exclude files:
+exclude files: can be empty
 ```
 ### usage
 ````sh
-$ clc -V
-> 1.0.0
-
-$ clc -help
+$ clc
+# [code lines counter]
+#
+# scan >> C:\the\current\folder\where\you\run\clc:
+# ----------------
+# 711 'lines of code written!'
+# ----------------
+# run clc -h  for more details
+$ clc -f
+# [code lines counter]
+#
+# scan >> C:\Users\utilisateur1\projects\test-app:
+# [root]
+# ├──[ ./css/ ]
+# |  ├──styles.css (1)
+# ├──[ ./html/ ]
+# |  ├──index.html (35)
+# ├──[ ./js/ ]
+# |  ├──kwatools.js (69)
+# |  ├──main.js (21)
+# ├──kwa.settings.json (21)
+# ----------------
+# 147 'lines of code written!'
+# ----------------
+$ clc --help
+# or
+$ clc -h
 # for more infos
 ````
 
