@@ -19,7 +19,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
       if (file.isDirectory()) {
         // Folders
         let isInclude = false
-        if(conf.include_folders.length>0){
+        if (conf.include_folders.length > 0) {
           for (var i = 0; i < conf.include_folders.length; i++) {
             if (file.name.lastIndexOf(conf.include_folders[i]) !== -1) {
               // console.log(file.name,conf.exclude_files[i])
@@ -30,9 +30,9 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
           isInclude = true;
         }
         let isExclude = false
-        if(conf.exclude_folders.length>0){
+        if (conf.exclude_folders.length > 0) {
           for (var i = 0; i < conf.exclude_folders.length; i++) {
-            if (file.name.lastIndexOf(conf.exclude_folders[i]) === -1) {
+            if (file.name.lastIndexOf(conf.exclude_folders[i]) !== -1) {
               // console.log(file.name,conf.exclude_files[i])
               isExclude = true;
             }
@@ -41,10 +41,12 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
 
         if (isFirst) {
           if (isInclude) {
-            if (showFiles) {
-              console.log(indentdir(level) + '[ ' + path + file.name + '/ ]');
+            if (!isExclude) {
+              if (showFiles) {
+                console.log(indentdir(level) + '[ ' + path + file.name + '/ ]');
+              }
+              counter(path + file.name + '/', false, (level + 1));
             }
-            counter(path + file.name + '/', false, (level + 1));
           } else {
             if (!isExclude) {
               if (showFiles) {
