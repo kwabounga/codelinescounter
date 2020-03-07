@@ -64,13 +64,6 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
         }
       } else {
         // Files
-        // let includedType = conf.include_files;
-        // let excludedType = ['.json'];
-
-        // conf.include_files.forEach((elmt) => {
-        //   if (file.name.lastIndexOf(elmt) !== -1) {
-        // conf.exclude_files.forEach((elmt) => {
-        //   if (file.name.lastIndexOf(elmt) === -1) {
         let isInclude = false
         for (var i = 0; i < conf.include_files.length; i++) {
           if (file.name.lastIndexOf(conf.include_files[i]) === -1) {
@@ -125,10 +118,6 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
 
       }
     })
-    //   }
-    // })
-    //   }
-    // });
 
   }
 
