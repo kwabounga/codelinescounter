@@ -1,0 +1,32 @@
+{
+  "name": "codelinescounter",
+  "version": "1.0.0",
+  "description": "to see how many lines of code you have written!",
+  "main": "index.js",
+  "bin": {
+    "clc": "bin/clc.js"
+  },
+  "scripts": {
+    "local": "node test.js'",
+    "test": "echo 'no tests yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwabounga/codelinescounter.git"
+  },
+  "keywords": [
+    "counter",
+    "code",
+    "lines",
+    "statistics"
+  ],
+  "author": "jeanyves chaillou @ kwa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kwabounga/codelinescounter/issues"
+  },
+  "homepage": "https://github.com/kwabounga/codelinescounter#readme",
+  "dependencies": {
+    "commander": "^4.1.1"
+  }
+}

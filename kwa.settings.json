@@ -1,0 +1,26 @@
+{
+  "name": "your app name",
+  "version": "0.0.0",
+  "description": "your project description",
+  "keywords": ["keywords","what", "describe", "your", "app"],
+  "license": "UNLICENCE",
+  "structure":{
+    "cssPath":"./css/",
+    "jsPath":"./js/",
+    "htmlPath":"./html/"
+  },
+  "addons": {
+    "useBootstrap":true,
+    "useFontAwesome":true,
+    "useJquery":true,
+    "useTweenMax":true,
+    "useBabylonJS":true,
+    "useKwaJs":true,
+    "useKwaTools":true
+  },
+  "jsFunctions": {
+    "ajaxget":true,
+    "ajaxpost":true,
+    "useful":true
+  }
+}
