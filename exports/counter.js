@@ -22,7 +22,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
       withFileTypes: true
     })
     // All Files
-    files.forEach((file, i) => {
+    files.forEach((file, f) => {
       if (file.isDirectory()) {
         // Folders
         let isInclude = false
@@ -45,7 +45,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
             }
           }
         }
-        let _indent = ((i === 0) ? indentlast : indent);
+        let _indent = ((f === files.length - 1) ? indentlast : indent);
         if (isFirst) {
           if (isInclude) {
             if (!isExclude) {
@@ -128,7 +128,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
               }
             }
             if (showFiles) {
-              let _indent = ((i === files.length - 1) ? indentlast : indent)
+              let _indent = ((f === files.length - 1) ? indentlast : indent)
               console.log(_indent(level) + file.name, '(' + nbline + ')');
             }
             // console.log('nbline of file', nbline)
