@@ -24,8 +24,10 @@ has you want
   "exclude_folders": ["node_modules", ".git"],
   "include_folders": ["css", "js", "exports", "html", "bin"]
 }
-include folders: is used for the root folder, it can be empty
-exclude files: can be empty
+include_folders: is only used for the root folder, it can be empty
+exclude_folders: if is empty : no excluded folders
+exclude_files: if is empty : no excluded files
+include_files: if is empty :  all files are included
 ```
 ### usage
 ````sh
