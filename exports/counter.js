@@ -1,11 +1,15 @@
 const fs = require('fs');
 
-exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
+exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, excludedFilesOTF) {
 
 
   let global_count = 0;
-
-
+  let allefotf = [];
+  if(excludedFilesOTF){
+    allefotf = excludedFilesOTF.split(';')
+    console.log('\n[Excluded files on the fly]:')
+    console.log(allefotf)
+  }
   let counter = function(path, isFirst = false, level = 1) {
 
     if (path == process.cwd()) {
@@ -66,6 +70,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
         }
       } else {
         // Files
+
         let isInclude = false
         if (conf.include_files.length > 0) {
           for (var i = 0; i < conf.include_files.length; i++) {
@@ -77,6 +82,9 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
         } else {
           isInclude = true;
         }
+
+        //adding exclued files on the fly
+        conf.exclude_files = conf.exclude_files.concat(allefotf);
         let isExclude = false
         if (conf.exclude_files.length > 0) {
           for (var i = 0; i < conf.exclude_files.length; i++) {

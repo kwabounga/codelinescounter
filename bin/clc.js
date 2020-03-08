@@ -23,6 +23,7 @@ program
   .option('-l, --logs', 'count lines of logs')
   .option('-b, --brackets', 'count lines of brackets, parentheses, comma, ect.')
   .option('-d, --doc', 'count lines of documentation and comments')
+  .option('-e, --exclude [string]', 'exclude files on the fly separate with ";"')
   .option('-h, --help', 'help')
   .parse(process.argv);
 
@@ -46,5 +47,5 @@ if(!program.help){
   return;
 } else {
   // count
-  cnter.count(conf, program.files, program.logs, program.brackets, program.doc);
+  cnter.count(conf, program.files, program.logs, program.brackets, program.doc, program.exclude);
 }

@@ -60,10 +60,14 @@ $ clc -h
 ````
 
 ### options
-[- f d b l | h]
+[- f d b l |-e| h]
 -h : for help  
 
 -f --files : to see files tree  
 -d -- doc : to count doc and comments  
 -b --brackets : to count brackets, parentheses, comma   
 -l --logs : to count log lines  
+-e --exclude : for exclude files on the fly
+```sh
+$ clc -e ttf;svg
+```
