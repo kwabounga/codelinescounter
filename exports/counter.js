@@ -170,6 +170,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
   opts += (countBrackets) ? '[count brackets]' : '';
   opts += (countDoc) ? '[count doc n comments]' : '';
   opts += (countLogs) ? '[count logs]' : '';
+  opts += (excludedFilesOTF) ? '[exclude files otf]' : '';
   opts += '\n';
   console.log(opts);
   console.log('scan >> ' + process.cwd() + ':')
