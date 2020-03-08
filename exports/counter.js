@@ -6,9 +6,12 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
   let global_count = 0;
   let allefotf = [];
   if(excludedFilesOTF){
-    allefotf = excludedFilesOTF.split(';')
-    console.log('\n[Excluded files on the fly]:')
-    console.log(allefotf)
+    // console.log(excludedFilesOTF)
+    if(excludedFilesOTF !== true){
+      allefotf = excludedFilesOTF.split(';')
+      console.log('\n[Excluded files on the fly]:')
+      console.log(allefotf)
+    }
   }
   let counter = function(path, isFirst = false, level = 1) {
 

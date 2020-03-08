@@ -62,7 +62,7 @@ $ clc -h
 ````
 
 ### options
-[- f d b l |-e| h]
+[- f d b l |-e| -h | -c]
 -h : for help  
 
 -f --files : to see files tree  
@@ -70,6 +70,7 @@ $ clc -h
 -b --brackets : to count brackets, parentheses, comma   
 -l --logs : to count log lines  
 -e --exclude : for exclude files on the fly
+-c --conf : override global configuration file
 ```sh
 $ clc -e ttf;svg
 ```
