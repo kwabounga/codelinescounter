@@ -38,19 +38,19 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
             }
           }
         }
-
+        let _indent = ((i === 0) ? indentlast : indent);
         if (isFirst) {
           if (isInclude) {
             if (!isExclude) {
               if (showFiles) {
-                console.log(indentdir(level) + '[ ' + path + file.name + '/ ]');
+                console.log(_indent(level) + '[ ' + path + file.name + '/ ]');
               }
               counter(path + file.name + '/', false, (level + 1));
             }
           } else {
             if (!isExclude) {
               if (showFiles) {
-                console.log(indentdir(level) + '[ ' + path + file.name + '/ ]');
+                console.log(_indent(level) + '[ ' + path + file.name + '/ ]');
               }
               counter(path + file.name + '/', false, (level + 1));
             }
@@ -58,7 +58,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
         } else {
           if (!isExclude) {
             if (showFiles) {
-              console.log(indentdir(level) + '[ ' + path + file.name + '/ ]');
+              console.log(_indent(level) + '[ ' + path + file.name + '/ ]');
             }
             counter(path + file.name + '/', false, (level + 1));
           }
@@ -67,17 +67,23 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
       } else {
         // Files
         let isInclude = false
-        for (var i = 0; i < conf.include_files.length; i++) {
-          if (file.name.lastIndexOf(conf.include_files[i]) === -1) {
-            // console.log(file.name,conf.exclude_files[i])
-            isInclude = true;
+        if (conf.include_files.length > 0) {
+          for (var i = 0; i < conf.include_files.length; i++) {
+            if (file.name.lastIndexOf(conf.include_files[i]) !== -1) {
+              // console.log(file.name,conf.exclude_files[i])
+              isInclude = true;
+            }
           }
+        } else {
+          isInclude = true;
         }
         let isExclude = false
-        for (var i = 0; i < conf.exclude_files.length; i++) {
-          if (file.name.lastIndexOf(conf.exclude_files[i]) !== -1) {
-            // console.log(file.name,conf.exclude_files[i])
-            isExclude = true;
+        if (conf.exclude_files.length > 0) {
+          for (var i = 0; i < conf.exclude_files.length; i++) {
+            if (file.name.lastIndexOf(conf.exclude_files[i]) !== -1) {
+              // console.log(file.name,conf.exclude_files[i])
+              isExclude = true;
+            }
           }
         }
         if (isInclude) {
@@ -111,7 +117,8 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
               }
             }
             if (showFiles) {
-              console.log(indent(level) + file.name, '(' + nbline + ')');
+              let _indent = ((i === files.length - 1) ? indentlast : indent)
+              console.log(_indent(level) + file.name, '(' + nbline + ')');
             }
             // console.log('nbline of file', nbline)
             global_count += nbline
@@ -125,10 +132,10 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
 
 
   // indent Dirs
-  let indentdir = function(level) {
+  let indentlast = function(level) {
     let idnt = '';
     for (var i = 0; i < level; i++) {
-      idnt += ((i == level - 1) ? '├──' : '|  ');
+      idnt += ((i == level - 1) ? '└──' : '|  ');
     }
     return idnt;
   }
@@ -147,6 +154,13 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc) {
 
 
   console.log('\n[code lines counter]\n')
+  let opts = 'options:';
+  opts += (showFiles) ? '[show files tree]' : '';
+  opts += (countBrackets) ? '[count brackets]' : '';
+  opts += (countDoc) ? '[count doc n comments]' : '';
+  opts += (countLogs) ? '[count logs]' : '';
+  opts += '\n';
+  console.log(opts);
   console.log('scan >> ' + process.cwd() + ':')
   if (showFiles) {
     console.log('[root]');
