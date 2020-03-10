@@ -13,7 +13,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
       console.log(allefotf)
     }
   }
-  let counter = function(path, isFirst = false, level = 1, isLast = false) {
+  let counter = function(path, isFirst = false, level = 1, isLastParents = [false]) {
 
     if (path == process.cwd()) {
       path = './'
@@ -50,24 +50,27 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
           if (isInclude) {
             if (!isExclude) {
               if (showFiles) {
-                console.log(_indent(level, isLast) + '[ ' + path + file.name + '/ ]');
+                console.log(_indent(level, isLastParents) + '[ ' + path + file.name + '/ ]');
               }
-              counter(path + file.name + '/', false, (level + 1),(f== files.length-1));
+              isLastParents.push(f== files.length-1);
+              counter(path + file.name + '/', false, (level + 1),isLastParents);
             }
           } else {
             if (!isExclude) {
               if (showFiles) {
-                console.log(_indent(level, isLast) + '[ ' + path + file.name + '/ ]');
+                console.log(_indent(level, isLastParents) + '[ ' + path + file.name + '/ ]');
               }
-              counter(path + file.name + '/', false, (level + 1),(f== files.length-1));
+              isLastParents.push(f== files.length-1);
+              counter(path + file.name + '/', false, (level + 1),isLastParents);
             }
           }
         } else {
           if (!isExclude) {
             if (showFiles) {
-              console.log(_indent(level, isLast) + '[ ' + path + file.name + '/ ]');
+              console.log(_indent(level, isLastParents) + '[ ' + path + file.name + '/ ]');
             }
-            counter(path + file.name + '/', false, (level + 1),(f== files.length-1));
+            isLastParents.push(f== files.length-1);
+            counter(path + file.name + '/', false, (level + 1),isLastParents);
           }
 
         }
@@ -128,8 +131,9 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
               }
             }
             if (showFiles) {
+
               let _indent = ((f === files.length - 1) ? indentlast : indent)
-              console.log(_indent(level, isLast) + file.name, '(' + nbline + ')');
+              console.log(_indent(level, isLastParents) + file.name, '(' + nbline + ')');
             }
             // console.log('nbline of file', nbline)
             global_count += nbline
@@ -143,20 +147,20 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
 
 
   // indent Dirs
-  let indentlast = function(level, last) {
+  let indentlast = function(level, lasts) {
     let idnt = '';
     for (var i = 0; i < level; i++) {
-      idnt += ((i == level - 1) ? '└──' : ((i==0 || !last)?'|  ':'   '));
+      idnt += ((i == level - 1) ? '└──' : ((i==0 || !lasts[i])?'|  ':'   '));
     }
     return idnt;
   }
 
   // indent Files
-  let indent = function(level,last) {
+  let indent = function(level,lasts) {
     let c = '  ';
     let idnt = '';
     for (var i = 0; i < level; i++) {
-      idnt += ((i == level - 1) ? '├──' : ((i==0 || !last)?'|  ':'   '));
+      idnt += ((i == level - 1) ? '├──' : ((i==0 || !lasts[i])?'|  ':'   '));
       // idnt += c;
     }
     return idnt;
