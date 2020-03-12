@@ -1,15 +1,17 @@
 const fs = require('fs');
 
-/*exports.*/
-var find = function(expression, included = [], excluded = []) {
+exports.find = function(expression, conf) {
+
+  let included = conf.include_files;
+  let excluded = conf.exclude_files;
 
   let rg = RegExp(expression, 'gm');
-  let path = 'C:\\\\Users\\utilisateur1\\projects\\';
+  // let path = 'C:\\\\Users\\utilisateur1\\projects\\';
   let finder = function(path) {
 
-    // if (path == process.cwd()) {
-    //   path = './'
-    // }
+    if (path == process.cwd()) {
+      path = './'
+    }
     let files = fs.readdirSync(path, {
       withFileTypes: true
     })
@@ -76,9 +78,9 @@ var find = function(expression, included = [], excluded = []) {
 
 
   console.log('\n[command find]\n')
-  finder(path);
+  finder(process.cwd());
 }
-console.time('founder');
-find('hercule', ['.js', '.log', '.settings', '.xml', '.conf'], ['.json']);
-console.timeEnd('founder');
-console.log('fin');
+// console.time('founder');
+// // find('hercule', ['.js', '.log', '.settings', '.xml', '.conf'], ['.json']);
+// console.timeEnd('founder');
+// console.log('fin');

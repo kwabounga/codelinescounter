@@ -4,7 +4,8 @@
   "description": "to see how many lines of code you have written!",
   "main": "index.js",
   "bin": {
-    "clc": "bin/clc.js"
+    "clc": "bin/clc.js",
+    "fndr": "bin/fndr.js"
   },
   "scripts": {
     "local": "node test.js'",
@@ -18,7 +19,8 @@
     "counter",
     "code",
     "lines",
-    "statistics"
+    "statistics",
+    "finder"
   ],
   "author": "jeanyves chaillou @ kwa",
   "license": "MIT",
