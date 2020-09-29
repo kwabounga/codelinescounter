@@ -5,12 +5,16 @@ to see how many lines of code you have written!
 ### installation
 
 ````sh
+# install
 $ git clone http://github.com/kwabounga/codelinescounter/
 $ npm install
 $ npm link
-# done!
-# test
-$ clc -V
+...
+# tests
+$ npm test
+...
+# show version
+$ clcnter -V
 > 1.0.0
 ````
 ### configuration
@@ -31,15 +35,15 @@ include_files: if is empty :  all files are included
 ```
 ### usage
 ````sh
-$ clc
+$ clcnter
 # [code lines counter]
 #
 # scan >> C:\the\current\folder\where\you\run\clc:
 # ----------------
 # 711 'lines of code written!'
 # ----------------
-# run clc -h  for more details
-$ clc -f
+# run clcnter -h  for more details
+$ clcnter -f
 # [code lines counter]
 #
 # scan >> C:\Users\utilisateur1\projects\test-app:
@@ -55,9 +59,9 @@ $ clc -f
 # ----------------
 # 147 'lines of code written!'
 # ----------------
-$ clc --help
+$ clcnter --help
 # or
-$ clc -h
+$ clcnter -h
 # for more infos
 ````
 
@@ -71,6 +75,12 @@ $ clc -h
 -l --logs : to count log lines  
 -e --exclude : for exclude files on the fly
 -c --conf : override global configuration file
+-p --path : select the path to analyse. if null the current path is used
+
 ```sh
-$ clc -e ttf;svg
+$ clcnter -e ttf
+# or 
+$ clcnter -e '.ttf;.svg'
+# or 
+$ clcnter -e ttf;svg
 ```
