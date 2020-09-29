@@ -6,15 +6,10 @@ var cnter = require('../exports/counter');
 
 // found application directory
 let pathCurDir = '';
-let p;
-if (__dirname.lastIndexOf('/') != -1) {
-  p = __dirname.lastIndexOf('/')
-} else {
-  p = __dirname.lastIndexOf('\\')
-}
+
 
 // get configuration in app directory
-var conf = require('../exports/configuration').configuration(__dirname.slice(0, p) + '/conf/.conf');
+var conf = require('../exports/configuration').configuration('./conf/.conf');
 
 // get options
 program
@@ -25,6 +20,7 @@ program
   .option('-d, --doc', 'count lines of documentation and comments')
   .option('-e, --exclude [string]', 'exclude files on the fly separate with ";"')
   .option('-c, --conf [path]', 'override global configuration file')
+  .option('-p, --path [path]', 'select another path')
   .option('-h, --help', 'help')
   .parse(process.argv);
 
@@ -33,7 +29,7 @@ program
 if (!program.help) {
   // displaying help
   console.log('\n[CODE LINE COUNTER HELP]\n')
-  console.log('$ clc -[options:-f -l -b -d -h | -lbd]\n')
+  console.log('$ clcnter -[options:-f -l -b -d -h | -lbd]\n')
   console.log('------------------------\n')
   // console.log(program.options)
   console.log('options:')
@@ -66,5 +62,5 @@ if (!program.help) {
     }
   }
   // count
-  cnter.count(conf, program.files, program.logs, program.brackets, program.doc, program.exclude);
+  cnter.count(conf, program.files, program.logs, program.brackets, program.doc, program.exclude, program.path);
 }

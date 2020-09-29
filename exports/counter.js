@@ -1,13 +1,13 @@
 const fs = require('fs');
-
-exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, excludedFilesOTF) {
+const p = require('path');
+exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, excludedFilesOTF, projetPath) {
 
 
   let global_count = 0;
   let allefotf = [];
-  if(excludedFilesOTF){
+  if (excludedFilesOTF) {
     // console.log(excludedFilesOTF)
-    if(excludedFilesOTF !== true){
+    if (excludedFilesOTF !== true) {
       allefotf = excludedFilesOTF.split(';')
       console.log('\n[Excluded files on the fly]:')
       console.log(allefotf)
@@ -18,7 +18,8 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
     if (path == process.cwd()) {
       path = './'
     }
-    let files = fs.readdirSync(path, {
+    // console.log(p.resolve(path), path);
+    let files = fs.readdirSync(p.resolve(path), {
       withFileTypes: true
     })
     // All Files
@@ -52,16 +53,16 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
               if (showFiles) {
                 console.log(_indent(level, isLastParents) + '[ ' + path + file.name + '/ ]');
               }
-              isLastParents.push(f== files.length-1);
-              counter(path + file.name + '/', false, (level + 1),isLastParents);
+              isLastParents.push(f == files.length - 1);
+              counter(path + file.name + '/', false, (level + 1), isLastParents);
             }
           } else {
             if (!isExclude) {
               if (showFiles) {
                 console.log(_indent(level, isLastParents) + '[ ' + path + file.name + '/ ]');
               }
-              isLastParents.push(f== files.length-1);
-              counter(path + file.name + '/', false, (level + 1),isLastParents);
+              isLastParents.push(f == files.length - 1);
+              counter(path + file.name + '/', false, (level + 1), isLastParents);
             }
           }
         } else {
@@ -69,8 +70,8 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
             if (showFiles) {
               console.log(_indent(level, isLastParents) + '[ ' + path + file.name + '/ ]');
             }
-            isLastParents.push(f== files.length-1);
-            counter(path + file.name + '/', false, (level + 1),isLastParents);
+            isLastParents.push(f == files.length - 1);
+            counter(path + file.name + '/', false, (level + 1), isLastParents);
           }
 
         }
@@ -110,18 +111,18 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
               if (lines[i].trim().length != 0) {
                 // comment lines
                 let begin = lines[i].trim().slice(0, 2);
-                if (countDoc && begin == '//' || begin == '/*' || begin == '* ') {
+                if (countDoc && (begin === '//' || begin === '/*' || begin === '* ')) {
                   nbline++;
-                } else if (begin != '//' && begin != '/*' && begin != '* ') {
+                } else if (begin !== '//' && begin !== '/*' && begin !== '* ') {
                   begin = lines[i].trim().slice(0, 8);
                   if (countLogs && begin == 'console.') {
                     // log lines
                     nbline++
-                  } else if (begin != 'console.') {
-                    if (countBrackets && lines[i].trim().replace(/[\\\/\)\(\{\}\[\]\;\,\.]/gm, '') == '') {
+                  } else if (begin !== 'console.') {
+                    if (countBrackets && lines[i].trim().replace(/[\\\/\)\(\{\}\[\]\;\,\.]/gm, '') === '') {
                       // brackets lines
                       nbline++;
-                    } else if (lines[i].trim().replace(/[\\\/\)\(\{\}\[\]\;\,\.]/gm, '') != '') {
+                    } else if (lines[i].trim().replace(/[\\\/\)\(\{\}\[\]\;\,\.]/gm, '') !== '') {
                       nbline++;
                     }
                   }
@@ -150,17 +151,17 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
   let indentlast = function(level, lasts) {
     let idnt = '';
     for (var i = 0; i < level; i++) {
-      idnt += ((i == level - 1) ? '└──' : ((i==0 || !lasts[i])?'|  ':'   '));
+      idnt += ((i === level - 1) ? '└──' : ((i === 0 || !lasts[i]) ? '|  ' : '   '));
     }
     return idnt;
   }
 
   // indent Files
-  let indent = function(level,lasts) {
+  let indent = function(level, lasts) {
     let c = '  ';
     let idnt = '';
     for (var i = 0; i < level; i++) {
-      idnt += ((i == level - 1) ? '├──' : ((i==0 || !lasts[i])?'|  ':'   '));
+      idnt += ((i === level - 1) ? '├──' : ((i === 0 || !lasts[i]) ? '|  ' : '   '));
       // idnt += c;
     }
     return idnt;
@@ -168,7 +169,7 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
 
 
 
-  console.log('\n[code lines counter]\n')
+  console.log('\nclcnter [code lines counter]\n')
   let opts = 'options:';
   opts += (showFiles) ? '[show files tree]' : '';
   opts += (countBrackets) ? '[count brackets]' : '';
@@ -181,11 +182,15 @@ exports.count = function(conf, showFiles, countLogs, countBrackets, countDoc, ex
   if (showFiles) {
     console.log('[root]');
   }
-  counter(process.cwd(), true);
-  console.log('----------------')
-  console.log(global_count, 'lines of code written!')
-  console.log('----------------')
+  //console.log(process.cwd());
+  //console.log(p.resolve(process.cwd()));
+  let thePath = projetPath || process.cwd();
+  counter(thePath, true);
+  console.log('----------------');
+  console.log(global_count, 'lines of code written!');
+  console.log('----------------');
   if (!showFiles) {
-    console.log('run clc -h  for more details');
+    console.log('run clcnter -h  for more details');
   }
+  return global_count;
 }

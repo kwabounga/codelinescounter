@@ -4,12 +4,14 @@
   "description": "to see how many lines of code you have written!",
   "main": "index.js",
   "bin": {
-    "clc": "bin/clc.js",
+    "clcnter": "bin/clc.js",
     "fndr": "bin/fndr.js"
   },
   "scripts": {
     "local": "node test.js'",
-    "test": "echo 'no tests yet'"
+    "test": "mocha",
+    "test-with-coverage": "nyc --reporter=text --all mocha",
+    "test-with-coverage-and-html": "nyc --reporter=text --reporter=html --all mocha"
   },
   "repository": {
     "type": "git",
@@ -30,5 +32,8 @@
   "homepage": "https://github.com/kwabounga/codelinescounter#readme",
   "dependencies": {
     "commander": "^4.1.1"
+  },
+  "devDependencies": {
+    "nyc": "^15.1.0"
   }
 }
