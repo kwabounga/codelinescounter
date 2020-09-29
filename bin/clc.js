@@ -4,10 +4,6 @@ var program = require('commander');
 var fs = require('fs');
 var cnter = require('../exports/counter');
 
-// found application directory
-let pathCurDir = '';
-
-
 // get configuration in app directory
 var conf = require('../exports/configuration').configuration('./conf/.conf');
 

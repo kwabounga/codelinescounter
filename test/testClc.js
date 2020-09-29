@@ -61,7 +61,7 @@ describe('#counter', function() {
     });
 
     it('clcnter is written in only 230 lines of code !', () => {
-      assert.strictEqual(testCounter.count(conf,null,null,null,null,'.md;.json',null), 230);
+      assert.strictEqual(testCounter.count(conf,null,null,null,null,'.md;.json',null), 229);
     });
   });
 
